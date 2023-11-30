@@ -17,7 +17,12 @@ public class RGLight : MonoBehaviour
     {
         timer = Time.time;
         audioSource = GetComponent<AudioSource>();
-        Invoke("startGreenLight", 1.5f);
+        StartGreenLight();
+    }
+
+    private void Update()
+    {
+
     }
 
     private void StartGreenLight()
@@ -29,13 +34,16 @@ public class RGLight : MonoBehaviour
 
     IEnumerator PlayGame()
     {
-        float rangeRed = Random.Range(3f, 7f);
+        float rangeRed = Random.Range(1f, 4.3f);
         yield return new WaitForSeconds(rangeRed);
         audioSource.PlayOneShot(redLight);
+        Update();
+        yield return null;
 
         float rangeGreen = Random.Range(2f, 4f);
         yield return new WaitForSeconds(rangeGreen);
         audioSource.PlayOneShot(greenLight);
+        Update();
         yield return null;
     }
 }
