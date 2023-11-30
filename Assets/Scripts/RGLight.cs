@@ -82,18 +82,7 @@ public class RGLight : MonoBehaviour
         Debug.Log("green");
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Vector3 P1CurrentPos = new Vector3 (P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
-        Vector3 P2CurrentPos = new Vector3 (P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
-
-        if (killBool) // if kill zone active
-        {
-            Destroy(other.gameObject);
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (killBool) // if kill zone active
         {

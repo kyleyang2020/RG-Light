@@ -1235,6 +1235,7 @@ GameObject:
   - component: {fileID: 1652837830}
   - component: {fileID: 1652837829}
   - component: {fileID: 1652837828}
+  - component: {fileID: 1652837831}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -1321,6 +1322,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652837826}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!136 &1652837831
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652837826}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1765321480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,7 +1350,7 @@ GameObject:
   - component: {fileID: 1765321486}
   - component: {fileID: 1765321485}
   - component: {fileID: 1765321487}
-  - component: {fileID: 1765321488}
+  - component: {fileID: 1765321489}
   m_Layer: 0
   m_Name: Doll
   m_TagString: Untagged
@@ -1401,7 +1416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765321480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 84.19, y: -0.9, z: -0.04}
+  m_LocalPosition: {x: 84.19, y: -0.96, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1520,7 +1535,7 @@ MonoBehaviour:
   greenLight: {fileID: 8300000, guid: 145593fd281fca843a4c7c0fdec7ebc4, type: 3}
   P1Transform: {fileID: 1804810297}
   P2Transform: {fileID: 678159972}
-  killZone: {fileID: 1765321488}
+  killZone: {fileID: 0}
   timeLimit: 60
 --- !u!81 &1765321487
 AudioListener:
@@ -1530,7 +1545,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765321480}
   m_Enabled: 1
---- !u!65 &1765321488
+--- !u!65 &1765321489
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1541,8 +1556,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 80, y: 1, z: 39}
-  m_Center: {x: -45, y: 0, z: 0}
+  m_Size: {x: 80, y: 0.53146505, z: 39}
+  m_Center: {x: -45, y: -0.23426749, z: 0}
 --- !u!1 &1804810295
 GameObject:
   m_ObjectHideFlags: 0
