@@ -1535,7 +1535,8 @@ MonoBehaviour:
   greenLight: {fileID: 8300000, guid: 145593fd281fca843a4c7c0fdec7ebc4, type: 3}
   P1Transform: {fileID: 1804810297}
   P2Transform: {fileID: 678159972}
-  killZone: {fileID: 0}
+  P1GameObject: {fileID: 1804810295}
+  P2GameObject: {fileID: 678159969}
   timeLimit: 60
 --- !u!81 &1765321487
 AudioListener:

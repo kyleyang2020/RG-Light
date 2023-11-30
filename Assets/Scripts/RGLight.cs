@@ -11,8 +11,11 @@ public class RGLight : MonoBehaviour
     public Transform P1Transform;
     public Transform P2Transform;
 
-    public BoxCollider killZone;
+    public GameObject P1GameObject;
+    public GameObject P2GameObject;
+
     private bool killBool;
+    private bool P1moving, P2moving;
 
     public float timeLimit;
     private float redTimer, greenTimer;
@@ -30,6 +33,9 @@ public class RGLight : MonoBehaviour
 
     private void Update()
     {
+        Vector3 saveP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
+        Vector3 saveP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
+
         timeLimit = timeLimit - Time.deltaTime;
 
         if (timeLimit < 0f)
@@ -59,6 +65,14 @@ public class RGLight : MonoBehaviour
                 isRedLight();
                 killBool = true;
                 greenTimer = Random.Range(2f, 6f);
+
+                Vector3 currentP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
+                Vector3 currentP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
+
+                if ((saveP1Pos - currentP1Pos).magnitude >= 0f)
+                    P1moving = true;
+                if ((saveP2Pos - currentP2Pos).magnitude >= 0f)
+                    P2moving = true;
             }
         }
         
@@ -84,9 +98,13 @@ public class RGLight : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (killBool) // if kill zone active
+        if (killBool && P1moving)
         {
-            Destroy(collision.gameObject);
+            P1GameObject.SetActive(false);
+        }
+        if (killBool && P2moving)
+        {
+            P2GameObject.SetActive(false);
         }
     }
 }
