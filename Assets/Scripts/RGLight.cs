@@ -23,6 +23,8 @@ public class RGLight : MonoBehaviour
     private bool isRed, isGreen = false;
     private AudioSource audioSource;
 
+    private Vector3 saveP1Pos, saveP2Pos, currentP1Pos, currentP2Pos;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -33,15 +35,25 @@ public class RGLight : MonoBehaviour
 
     private void Update()
     {
-        Vector3 saveP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
-        Vector3 saveP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
-
         timeLimit = timeLimit - Time.deltaTime;
 
         if (timeLimit < 0f)
         {
             timeLimit = 0f;
             Debug.Log("DONE");
+        }
+
+        // when light is red checks if player is moving then set moving to true
+        if(isRed)
+        {
+            Debug.Log("player check");
+            currentP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
+            currentP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
+
+            if ((currentP1Pos - saveP1Pos).magnitude > 0f)
+                P1moving = true;
+            if ((currentP2Pos - saveP2Pos).magnitude > 0f)
+                P2moving = true;
         }
         
         // when light is red, and random time has passed as red light, turn green
@@ -60,22 +72,15 @@ public class RGLight : MonoBehaviour
         else if (isGreen)
         {
             greenTimer = greenTimer - Time.deltaTime;
+            saveP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
+            saveP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
             if (greenTimer < 0f)
             {
                 isRedLight();
                 killBool = true;
                 greenTimer = Random.Range(2f, 6f);
-
-                Vector3 currentP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
-                Vector3 currentP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
-
-                if ((saveP1Pos - currentP1Pos).magnitude >= 0f)
-                    P1moving = true;
-                if ((saveP2Pos - currentP2Pos).magnitude >= 0f)
-                    P2moving = true;
             }
         }
-        
     }
 
     // updates bool for update and plays red sound
@@ -99,12 +104,8 @@ public class RGLight : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
         if (killBool && P1moving)
-        {
             P1GameObject.SetActive(false);
-        }
         if (killBool && P2moving)
-        {
             P2GameObject.SetActive(false);
-        }
     }
 }
