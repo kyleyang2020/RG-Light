@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RGLight : MonoBehaviour
 {
@@ -31,8 +30,6 @@ public class RGLight : MonoBehaviour
 
     private bool P1LoseBool, P2LoseBool;
 
-    public Text timerText;
-
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -44,7 +41,6 @@ public class RGLight : MonoBehaviour
     private void Update()
     {
         timeLimit = timeLimit - Time.deltaTime;
-        DisplayTimeLeft(timeLimit);
 
         if (timeLimit < 0f || (P1LoseBool && P2LoseBool)) // if time runs out or both players lose
         {
@@ -104,13 +100,6 @@ public class RGLight : MonoBehaviour
         isRed = false;
         isGreen = true;
         audioSource.PlayOneShot(greenLight);
-    }
-
-    private void DisplayTimeLeft(float time)
-    {
-        float minutes = Mathf.FloorToInt(time / 60);
-        float seconds = Mathf.FloorToInt(time % 60);
-        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 
     private void OnCollisionStay(Collision collision)
