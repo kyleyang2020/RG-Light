@@ -25,6 +25,11 @@ public class RGLight : MonoBehaviour
 
     private Vector3 saveP1Pos, saveP2Pos, currentP1Pos, currentP2Pos;
 
+    public GameObject P1Lose;
+    public GameObject P2Lose;
+
+    private bool P1LoseBool, P2LoseBool;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -37,16 +42,14 @@ public class RGLight : MonoBehaviour
     {
         timeLimit = timeLimit - Time.deltaTime;
 
-        if (timeLimit < 0f)
+        if (timeLimit < 0f || (P1LoseBool && P2LoseBool)) // if time runs out or both players lose
         {
             timeLimit = 0f;
-            Debug.Log("DONE");
         }
 
         // when light is red checks if player is moving then set moving to true
         if(isRed)
         {
-            Debug.Log("player check");
             currentP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
             currentP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
 
@@ -89,7 +92,6 @@ public class RGLight : MonoBehaviour
         isRed = true;
         isGreen = false;
         audioSource.PlayOneShot(redLight);
-        Debug.Log("red");
     }
 
     // updates bool for update and plays green sound
@@ -98,14 +100,21 @@ public class RGLight : MonoBehaviour
         isRed = false;
         isGreen = true;
         audioSource.PlayOneShot(greenLight);
-        Debug.Log("green");
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (killBool && P1moving)
+        {
             P1GameObject.SetActive(false);
+            P1Lose.SetActive(true);
+            P1LoseBool = true;
+        }
         if (killBool && P2moving)
+        {
             P2GameObject.SetActive(false);
+            P2Lose.SetActive(true);
+            P2LoseBool = true;
+        }
     }
 }
