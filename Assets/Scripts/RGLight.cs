@@ -7,6 +7,9 @@ public class RGLight : MonoBehaviour
 {
     public AudioClip redLight;
     public AudioClip greenLight;
+    public AudioClip redLightWAV;
+    public AudioClip greenLightWAV;
+    public AudioClip death;
 
     public Transform P1Transform;
     public Transform P2Transform;
@@ -92,6 +95,7 @@ public class RGLight : MonoBehaviour
         isRed = true;
         isGreen = false;
         audioSource.PlayOneShot(redLight);
+        audioSource.PlayOneShot(redLightWAV);
     }
 
     // updates bool for update and plays green sound
@@ -100,18 +104,21 @@ public class RGLight : MonoBehaviour
         isRed = false;
         isGreen = true;
         audioSource.PlayOneShot(greenLight);
+        audioSource.PlayOneShot(greenLightWAV);
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (killBool && P1moving)
         {
+            audioSource.PlayOneShot(death);
             P1GameObject.SetActive(false);
             P1Lose.SetActive(true);
             P1LoseBool = true;
         }
         if (killBool && P2moving)
         {
+            audioSource.PlayOneShot(death);
             P2GameObject.SetActive(false);
             P2Lose.SetActive(true);
             P2LoseBool = true;

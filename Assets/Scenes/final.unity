@@ -1288,6 +1288,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redLight: {fileID: 8300000, guid: 1830803e5089d7649800f9230016b331, type: 3}
   greenLight: {fileID: 8300000, guid: 145593fd281fca843a4c7c0fdec7ebc4, type: 3}
+  redLightWAV: {fileID: 8300000, guid: c12b60a250c0b3a4a85f5e66af2b9efa, type: 3}
+  greenLightWAV: {fileID: 8300000, guid: 4655f0f22f825c44a986fdbaa8137423, type: 3}
+  death: {fileID: 8300000, guid: a9038f90b9bb16a41a8457b6155858f0, type: 3}
   P1Transform: {fileID: 901656216}
   P2Transform: {fileID: 1143327191}
   P1GameObject: {fileID: 901656215}
