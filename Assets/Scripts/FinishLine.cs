@@ -8,6 +8,23 @@ public class FinishLine : MonoBehaviour
     public GameObject P1Win;
     public GameObject P2Win;
 
+    private void Update()
+    {
+        ResetLevel();
+
+    }
+    private void ResetLevel()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("final");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("start-scene");
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("P1"))
