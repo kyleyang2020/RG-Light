@@ -51,6 +51,9 @@ public class RGLight : MonoBehaviour
         if (timeLimit < 0f || (P1LoseBool && P2LoseBool)) // if time runs out or both players lose
         {
             timeLimit = 0f;
+            audioSource.PlayOneShot(death);
+            P1Lose.SetActive(true);
+            P2Lose.SetActive(true);
         }
 
         // when light is red checks if player is moving then set moving to true

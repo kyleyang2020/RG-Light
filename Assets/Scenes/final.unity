@@ -1296,7 +1296,7 @@ MonoBehaviour:
   P1GameObject: {fileID: 901656215}
   P2GameObject: {fileID: 1143327190}
   timerText: {fileID: 562517860}
-  timeLimit: 60
+  timeLimit: 30
   P1Lose: {fileID: 2015744204}
   P2Lose: {fileID: 757376349}
 --- !u!23 &726030108
