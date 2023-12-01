@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RGLight : MonoBehaviour
 {
@@ -25,6 +26,13 @@ public class RGLight : MonoBehaviour
 
     private Vector3 saveP1Pos, saveP2Pos, currentP1Pos, currentP2Pos;
 
+    public GameObject P1Lose;
+    public GameObject P2Lose;
+
+    private bool P1LoseBool, P2LoseBool;
+
+    public Text timerText;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -36,17 +44,16 @@ public class RGLight : MonoBehaviour
     private void Update()
     {
         timeLimit = timeLimit - Time.deltaTime;
+        DisplayTimeLeft(timeLimit);
 
-        if (timeLimit < 0f)
+        if (timeLimit < 0f || (P1LoseBool && P2LoseBool)) // if time runs out or both players lose
         {
             timeLimit = 0f;
-            Debug.Log("DONE");
         }
 
         // when light is red checks if player is moving then set moving to true
         if(isRed)
         {
-            Debug.Log("player check");
             currentP1Pos = new Vector3(P1Transform.position.x, P1Transform.position.y, P1Transform.position.z);
             currentP2Pos = new Vector3(P2Transform.position.x, P2Transform.position.y, P2Transform.position.z);
 
@@ -89,7 +96,6 @@ public class RGLight : MonoBehaviour
         isRed = true;
         isGreen = false;
         audioSource.PlayOneShot(redLight);
-        Debug.Log("red");
     }
 
     // updates bool for update and plays green sound
@@ -98,14 +104,28 @@ public class RGLight : MonoBehaviour
         isRed = false;
         isGreen = true;
         audioSource.PlayOneShot(greenLight);
-        Debug.Log("green");
+    }
+
+    private void DisplayTimeLeft(float time)
+    {
+        float minutes = Mathf.FloorToInt(time / 60);
+        float seconds = Mathf.FloorToInt(time % 60);
+        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (killBool && P1moving)
+        {
             P1GameObject.SetActive(false);
+            P1Lose.SetActive(true);
+            P1LoseBool = true;
+        }
         if (killBool && P2moving)
+        {
             P2GameObject.SetActive(false);
+            P2Lose.SetActive(true);
+            P2LoseBool = true;
+        }
     }
 }
