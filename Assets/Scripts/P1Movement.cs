@@ -7,6 +7,8 @@ public class P1Movement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    private Vector3 currentSpeed;
+    private int facingParam = 0;
 
     public float groundDrag;
 
@@ -31,11 +33,13 @@ public class P1Movement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    public Animator anim;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        anim = GetComponent<Animator>();
 
         readyToJump = true;
     }
@@ -58,12 +62,41 @@ public class P1Movement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        //update animator parameters  
+        anim.SetInteger("facing", facingParam);
     }
 
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("HorizontalP1");
         verticalInput = Input.GetAxisRaw("VerticalP1");
+
+        //animation check
+        if (horizontalInput > 0)
+        {
+            facingParam = 1;
+            anim.SetBool("is_walk", true);
+        }
+        else if (horizontalInput < 0)
+        {
+            facingParam = 3;
+            anim.SetBool("is_walk", true);
+        }
+        else if (verticalInput > 0)
+        {
+            facingParam = 0;
+            anim.SetBool("is_walk", true);
+        }
+        else if (verticalInput < 0)
+        {
+            facingParam = 0;
+            anim.SetBool("is_walk", true);
+        }
+        else
+        {
+            anim.SetBool("is_walk", false);
+        }
 
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
